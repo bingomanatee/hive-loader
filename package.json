@@ -1,0 +1,15 @@
+{
+	"name":         "hive-loader",
+	"version":      "0.0.1",
+	"private":      false,
+	"scripts":      {
+		"start": "node index"
+	},
+	"dependencies": {
+		"underscore":     "*",
+		"tap":            "*",
+		"support":        "*",
+		"hive-component": "*",
+		"gate":           "*"
+	}
+}
