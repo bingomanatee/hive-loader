@@ -39,7 +39,7 @@ tap.test('bad handler', function (t) {
 			});
 		} catch (e) {
 
-			t.ok(true, 'bad handler throws an error')
+			t.ok(true, 'bad handler throws an error ' + e.message)
 			t.end();
 		}
 	})

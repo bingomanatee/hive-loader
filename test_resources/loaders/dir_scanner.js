@@ -16,12 +16,12 @@ function File_Loader(mixins, config, cb) {
 	return Loader(
 		[
 			mixins,
-			{ files: [] }
+			{ files: [] ,
+				name:     'dir_scanner'}
 		],
 		[
 			{
-				handlers: [fh, dh],
-				name:     'txt_loader'
+				handlers: [fh, dh]
 			},
 			config
 		],
