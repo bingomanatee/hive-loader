@@ -3,26 +3,33 @@ var Loader = loader.loader;
 var Handler = loader.handler;
 var _ = require('underscore');
 var path = require('path');
+var util = require('util')
 
-
+var dir_handler = require('./../handlers/dir_file');
+var file_handler = require('./../handlers/txt_file');
 
 function File_Loader(mixins, config, cb) {
-
-	var dir_handler = require('./../handlers/dir_file');
-	var file_handler = require('./../handlers/txt_file');
 
 	var fh = file_handler({}, {name_filter: config.name_filter});
 	var dh = dir_handler({}, {});
 
-	var _mixins = { files: [] };
-
-	mixins = _.clone(mixins);
-	_.defaults(mixins, _mixins);
-
-	config = _.clone(config);
-	_.defaults(config, {handlers: [fh, dh],  name: 'txt_loader'});
-
-	return Loader(mixins, config, cb);
+	return Loader(
+		[
+			mixins,
+			{ files: [] }
+		],
+		[
+			{
+				handlers: [fh, dh],
+				name:     'txt_loader'
+			},
+			config
+		],
+		function (err, loader) {
+			fh.config().set('target', loader);
+			dh.config().set('target', loader);
+			if (cb) cb(err, loader);
+		});
 }
 
 module.exports = File_Loader;

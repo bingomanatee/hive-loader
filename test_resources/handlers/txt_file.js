@@ -11,11 +11,13 @@ var _mixins = {name: 'txt_handler', respond: function (params) {
 
 module.exports = function (mixins, config, cb) {
 
-	config = _.clone(config);
-	_.defaults(config, {name_filter: ['(.*)\.txt', 'i']});
-
-	mixins = _.clone(mixins);
-	_.defaults(mixins, _mixins);
-
-	return Handler(mixins, config, cb);
+	return Handler(
+		[
+			mixins, _mixins
+		],
+		[
+			config,
+			{name_filter: ['(.*)\.txt', 'i']}
+		]
+		, cb);
 }

@@ -5,10 +5,11 @@ var Handler = loader.handler;
 var path = require('path');
 var util = require('util');
 var _ = require('underscore');
+var domain = require('domain');
 
 var dir_scanner = require('./../test_resources/loaders/dir_scanner');
 
-tap.test(function (t) {
+tap.test('dir scanner', function (t) {
 	var scan_path = path.resolve(__dirname, '../test_resources/scan');
 
 	dir_scanner({}, {root: scan_path, name_filter: /(.*)\.txt$/i}, function (err, fl) {
@@ -23,3 +24,24 @@ tap.test(function (t) {
 	})
 
 });
+
+tap.test('bad handler', function (t) {
+
+	dir_scanner({}, {root: __dirname}, function (err, ds) {
+
+		ds.set_config('handlers', [
+			{TYPE: 'Foo'}
+		]);
+
+		try {
+			ds.load(function () {
+				t.end();
+			});
+		} catch (e) {
+
+			t.ok(true, 'bad handler throws an error')
+			t.end();
+		}
+	})
+
+})
