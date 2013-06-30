@@ -12,7 +12,7 @@ var dir_scanner = require('./../test_resources/loaders/dir_scanner');
 tap.test('dir scanner', function (t) {
 	var scan_path = path.resolve(__dirname, '../test_resources/scan');
 
-	dir_scanner({}, {root: scan_path, name_filter: /(.*)\.txt$/i}, function (err, fl) {
+	dir_scanner({}, {root: scan_path, core: {}, name_filter: /(.*)\.txt$/i}, function (err, fl) {
 
 		fl.load(function (err) {
 			var files = fl.files;
@@ -27,7 +27,7 @@ tap.test('dir scanner', function (t) {
 
 tap.test('bad handler', function (t) {
 
-	dir_scanner({}, {root: __dirname}, function (err, ds) {
+	dir_scanner({}, {root: __dirname, core: {}}, function (err, ds) {
 
 		ds.set_config('handlers', [
 			{TYPE: 'Foo'}

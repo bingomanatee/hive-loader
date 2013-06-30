@@ -1,6 +1,6 @@
 {
 	"name":         "hive-loader",
-	"version":      "0.0.1a",
+	"version":      "0.0.2",
 	"private":      false,
 	"scripts":      {
 		"start": "node index"

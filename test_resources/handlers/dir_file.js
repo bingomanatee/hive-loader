@@ -9,7 +9,7 @@ var _mixins = {
 	respond: function (params) {
 		var latch = params.gate.latch();
 		var ds =  dir_scanner = require('./../loaders/dir_scanner')({}, {target: this, name_filter: this.get_config('name_filter')});
-
+		ds.core(params.core);
 		ds.load(latch, params.file_path);
 	}
 };
