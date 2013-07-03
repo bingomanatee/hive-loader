@@ -24,24 +24,3 @@ tap.test('dir scanner', function (t) {
 	})
 
 });
-
-tap.test('bad handler', function (t) {
-
-	dir_scanner({}, {root: __dirname, core: {}}, function (err, ds) {
-
-		ds.set_config('handlers', [
-			{TYPE: 'Foo'}
-		]);
-
-		try {
-			ds.load(function () {
-				t.end();
-			});
-		} catch (e) {
-
-			t.ok(true, 'bad handler throws an error ' + e.message)
-			t.end();
-		}
-	})
-
-})

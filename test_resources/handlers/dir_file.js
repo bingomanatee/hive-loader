@@ -15,12 +15,7 @@ var _mixins = {
 };
 
 module.exports = function (mixins, config, cb) {
-	mixins = _.clone(mixins);
-	_.defaults(mixins, _mixins);
-
-	config = _.clone(config);
-	_.defaults(config, {name_filter: /.*/})
 	config.dir = true;
 
-	return Handler(mixins, config, cb);
+	return Handler([mixins, _mixins], [config, {name_filter: /.*/}], cb);
 }
