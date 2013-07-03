@@ -10,8 +10,10 @@ var file_handler = require('./../handlers/txt_file');
 
 function File_Loader(mixins, config, cb) {
 
-	var fh = file_handler({}, {name_filter: config.name_filter});
-	var dh = dir_handler({}, {});
+	console.log('name_filter: %s', config.name_filter);
+
+	var fh = file_handler({}, {name_filter: config.name_filter, target: loader});
+	var dh = dir_handler({}, {target: loader, name_filter: /.*/, file_name_filter: config.name_filter} );
 
 	return Loader(
 		[
@@ -21,15 +23,11 @@ function File_Loader(mixins, config, cb) {
 		],
 		[
 			{
-				handlers: [fh, dh]
+				handlers: [fh, dh],
+				name_filter: /.*/
 			},
 			config
-		],
-		function (err, loader) {
-			fh.config().set('target', loader);
-			dh.config().set('target', loader);
-			if (cb) cb(err, loader);
-		});
+		], cb);
 }
 
 module.exports = File_Loader;

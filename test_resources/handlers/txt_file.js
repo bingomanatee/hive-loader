@@ -1,12 +1,15 @@
 var loader = require('./../../index');
-var Loader = loader.loader;
 var Handler = loader.handler;
 var _ = require('underscore');
-
+var util = require('util');
 
 var _mixins = {name: 'txt_handler', respond: function (params) {
-	//	console.log('%s, responding to %s', util.inspect(target), params.file);
-	this.files.push(params.file);
+	if (!params.core.files) params.core.files = [];
+	if (!params.core.paths) params.core.paths = [];
+	params.core.files.push(params.file);
+	params.core.paths.push(params.file_path.substr(params.core.root.length));
+//	console.log('core: %s', util.inspect(params.core, false, 1));
+//	console.log('parapms: %s', util.inspect(params, false, 1));
 }};
 
 module.exports = function (mixins, config, cb) {
@@ -15,9 +18,6 @@ module.exports = function (mixins, config, cb) {
 		[
 			mixins, _mixins
 		],
-		[
-			config,
-			{name_filter: ['(.*)\.txt', 'i']}
-		]
+		config
 		, cb);
 }
